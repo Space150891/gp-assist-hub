@@ -1,4 +1,4 @@
-import {createContext,useContext,useEffect,useMemo,useState,type ReactNode} from "react";
+import {createContext,useContext,useEffect,useMemo,useState,type Context,type ReactNode} from "react";
 import {initialState} from "@/data/portal-data";
 import type {AuditEntry,OrganisationId,PortalState,PortalUser,Role,Ticket} from "./portal-types";
 type Store={state:PortalState;hydrated:boolean;signIn:(mode:"customer"|"platform")=>void;signOut:()=>void;setRole:(r:Role)=>void;setOrg:(o:OrganisationId)=>void;addTicket:(t:Ticket)=>void;updateTicket:(id:string,fn:(t:Ticket)=>Ticket)=>void;addUser:(u:PortalUser)=>void;updateUser:(id:string,fn:(u:PortalUser)=>PortalUser)=>void;viewArticle:(id:string)=>void;voteArticle:(id:string,v:string)=>void;setPreference:(k:"notifications"|"highContrast",v:boolean)=>void;patchState:(fn:(s:PortalState)=>PortalState)=>void;addAudit:(entry:Omit<AuditEntry,"id"|"at">)=>void;resetDemo:()=>void};
