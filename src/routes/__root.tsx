@@ -79,6 +79,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
+      { name: "theme-color", content: "#0879c9" },
       { title: "Health IT Services Customer Portal" },
       { name: "description", content: "Secure customer support portal for GP IT Services customers." },
       { name: "author", content: "IT Auxilium Ltd" },

@@ -1,6 +1,6 @@
 export type Role = "Organisation User" | "Organisation Admin" | "Support Analyst" | "Platform Owner";
 export type TicketStatus = "Submitted" | "In Progress" | "Awaiting Customer" | "Awaiting Approval" | "Resolved" | "Closed";
-export type SyncStatus = "Queued for Autotask" | "Processing" | "Retrying" | "Synced" | "Failed" | "Dead Letter";
+export type SyncStatus = "Queued for Autotask" | "Processing" | "Retrying" | "Synced" | "Failed" | "Dead Letter" | "Successful";
 export type Priority = "Low" | "Normal" | "High" | "Critical";
 export type SlaState = "On Track" | "At Risk" | "Breached";
 export type OrganisationId = "riverside" | "northfield";
@@ -16,4 +16,5 @@ export interface ServiceNotice { id:string; title:string; services:string[]; org
 export interface IntegrationJob { id:string; ticketId:string; type:string; state:SyncStatus; updated:string; correlationId:string; summary:string; reviewed:boolean }
 export interface OrganisationRecord { id:OrganisationId; name:string; autotaskCompanyId:string; status:"Active"|"Suspended"; sites:string[]; knowledgePolicy:string; entitlement:string; lastActivity:string }
 export interface Session { name:string; email:string; role:Role; orgId:OrganisationId; organisations:OrganisationId[] }
-export interface PortalState { session:Session|null; tickets:Ticket[]; users:PortalUser[]; recentArticles:string[]; articleVotes:Record<string,string>; notifications:boolean; highContrast:boolean; audit:AuditEntry[]; catalogue:CatalogueItem[]; newStarterFields:FormField[]; knowledgeSources:KnowledgeSource[]; notices:ServiceNotice[]; jobs:IntegrationJob[]; organisationRecords:OrganisationRecord[]; knowledgeSearches:number; avoidedRequests:number; invitations:{id:string;email:string;orgId:OrganisationId;role:string;status:string}[] }
+export interface SupportPrefill { category:string; subject:string; description:string }
+export interface PortalState { session:Session|null; tickets:Ticket[]; users:PortalUser[]; recentArticles:string[]; articleVotes:Record<string,string>; notifications:boolean; highContrast:boolean; audit:AuditEntry[]; catalogue:CatalogueItem[]; newStarterFields:FormField[]; draftNewStarterFields:FormField[]; supportPrefill:SupportPrefill|null; knowledgeSources:KnowledgeSource[]; notices:ServiceNotice[]; jobs:IntegrationJob[]; organisationRecords:OrganisationRecord[]; knowledgeSearches:number; avoidedRequests:number; invitations:{id:string;email:string;orgId:OrganisationId;role:string;status:string}[] }
