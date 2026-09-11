@@ -1,0 +1,4 @@
+import type { ReactNode } from "react";
+export function Page({title,description,action,children}:{title:string;description?:string;action?:ReactNode;children:ReactNode}){return <main className="mx-auto w-full max-w-7xl px-4 py-6 pb-28 sm:px-6 lg:px-8 lg:pb-10"><div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between"><div><h1 className="text-2xl font-bold text-foreground sm:text-3xl">{title}</h1>{description&&<p className="mt-1 max-w-3xl text-sm text-muted-foreground">{description}</p>}</div>{action}</div>{children}</main>}
+export function Panel({children,className=""}:{children:ReactNode;className?:string}){return <section className={`rounded-lg border border-border bg-card p-5 ${className}`}>{children}</section>}
+export function Empty({title,detail}:{title:string;detail:string}){return <div className="py-10 text-center"><p className="font-semibold">{title}</p><p className="mt-1 text-sm text-muted-foreground">{detail}</p></div>}

@@ -1,24 +1,7 @@
-import { createFileRoute } from "@tanstack/react-router";
-
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
-export const Route = createFileRoute("/")({
-  component: Index,
-});
-
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
-function Index() {
-  return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
-  );
-}
+import { createFileRoute,useNavigate } from "@tanstack/react-router";
+import { LockKeyhole,ShieldCheck } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { usePortal } from "@/lib/portal-store";
+import logo from "@/assets/gpit-logo.png";
+export const Route=createFileRoute("/")({head:()=>({meta:[{title:"Sign in | Health IT Services Portal"},{name:"description",content:"Secure access to the GP IT Services customer portal."},{property:"og:title",content:"Health IT Services Customer Portal"},{property:"og:description",content:"Secure customer access for managed IT support."},{property:"og:type",content:"website"},{name:"twitter:card",content:"summary_large_image"}]}),component:SignIn});
+function SignIn(){const{signIn,state,hydrated}=usePortal();const navigate=useNavigate();const enter=(mode:"customer"|"platform")=>{signIn(mode);navigate({to:"/dashboard"})};if(hydrated&&state.session){queueMicrotask(()=>navigate({to:"/dashboard",replace:true}));return null}return <main className="grid min-h-screen bg-background lg:grid-cols-[1fr_480px]"><section className="hidden bg-foreground px-16 py-14 text-primary-foreground lg:flex lg:flex-col lg:justify-between"><img src={logo} alt="GP IT Services" className="w-56 rounded-sm bg-card p-3"/><div className="max-w-xl"><ShieldCheck className="mb-6 size-12 text-secondary"/><h1 className="text-4xl font-bold leading-tight">Health IT Services Customer Portal</h1><p className="mt-5 text-lg leading-8 text-primary-foreground/80">A secure place for healthcare organisations to request support, follow progress and access approved guidance.</p></div><p className="max-w-lg text-sm text-primary-foreground/70">Autotask is the system of record. The portal is the secure customer-facing workflow layer.</p></section><section className="flex items-center justify-center px-5 py-10"><div className="w-full max-w-md"><img src={logo} alt="GP IT Services" className="mb-10 h-auto w-56 lg:hidden"/><p className="text-sm font-bold uppercase text-primary">Customer portal</p><h1 className="mt-2 text-3xl font-bold lg:text-2xl">Sign in securely</h1><p className="mt-3 text-muted-foreground">Use your organisation’s Microsoft account to continue.</p><Button size="lg" className="mt-8 w-full" onClick={()=>enter("customer")}><span className="grid size-5 grid-cols-2 gap-0.5"><i className="bg-primary-foreground"/><i className="bg-primary-foreground"/><i className="bg-primary-foreground"/><i className="bg-primary-foreground"/></span>Sign in with Microsoft</Button><div className="my-6 flex items-center gap-3 text-xs text-muted-foreground"><span className="h-px flex-1 bg-border"/>DEMONSTRATION ACCESS<span className="h-px flex-1 bg-border"/></div><div className="grid gap-3 sm:grid-cols-2"><Button variant="outline" onClick={()=>enter("customer")}>Enter Customer Demo</Button><Button variant="outline" onClick={()=>enter("platform")}>Enter Platform Demo</Button></div><div className="mt-8 flex gap-3 rounded-lg border border-border bg-card p-4"><LockKeyhole className="mt-0.5 size-5 shrink-0 text-success"/><p className="text-sm text-muted-foreground"><strong className="text-foreground">Prototype only.</strong> Microsoft sign-in and connected services are safely simulated. Do not enter patient or clinical information.</p></div></div></section></main>}
