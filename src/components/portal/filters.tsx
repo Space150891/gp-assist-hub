@@ -1,0 +1,3 @@
+import{Input}from"@/components/ui/input";import{Select,SelectContent,SelectItem,SelectTrigger,SelectValue}from"@/components/ui/select";
+export function FilterSelect({value,onChange,items,label}:{value:string;onChange:(v:string)=>void;items:string[];label:string}){return <Select value={value} onValueChange={onChange}><SelectTrigger aria-label={label} className="min-h-11"><SelectValue/></SelectTrigger><SelectContent>{items.map(x=><SelectItem key={x} value={x}>{x}</SelectItem>)}</SelectContent></Select>}
+export function SearchBox({value,onChange,placeholder="Search"}:{value:string;onChange:(v:string)=>void;placeholder?:string}){return <Input aria-label={placeholder} value={value} onChange={e=>onChange(e.target.value)} placeholder={placeholder} className="min-h-11"/>}
