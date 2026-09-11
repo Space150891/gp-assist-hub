@@ -10,33 +10,165 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as DashboardRouteImport } from './routes/dashboard'
+import { Route as KnowledgeRouteImport } from './routes/knowledge'
+import { Route as OperationsRouteImport } from './routes/operations'
+import { Route as OrganisationRouteImport } from './routes/organisation'
+import { Route as ProfileRouteImport } from './routes/profile'
+import { Route as RequestsRouteImport } from './routes/requests'
+import { Route as StatusRouteImport } from './routes/status'
+import { Route as SupportRouteImport } from './routes/support'
+import { Route as KnowledgeArticleIdRouteImport } from './routes/knowledge.$articleId'
+import { Route as RequestsTicketIdRouteImport } from './routes/requests.$ticketId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DashboardRoute = DashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const KnowledgeRoute = KnowledgeRouteImport.update({
+  id: '/knowledge',
+  path: '/knowledge',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OperationsRoute = OperationsRouteImport.update({
+  id: '/operations',
+  path: '/operations',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OrganisationRoute = OrganisationRouteImport.update({
+  id: '/organisation',
+  path: '/organisation',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProfileRoute = ProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RequestsRoute = RequestsRouteImport.update({
+  id: '/requests',
+  path: '/requests',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StatusRoute = StatusRouteImport.update({
+  id: '/status',
+  path: '/status',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SupportRoute = SupportRouteImport.update({
+  id: '/support',
+  path: '/support',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const KnowledgeArticleIdRoute = KnowledgeArticleIdRouteImport.update({
+  id: '/$articleId',
+  path: '/$articleId',
+  getParentRoute: () => KnowledgeRoute,
+} as any)
+const RequestsTicketIdRoute = RequestsTicketIdRouteImport.update({
+  id: '/$ticketId',
+  path: '/$ticketId',
+  getParentRoute: () => RequestsRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/dashboard': typeof DashboardRoute
+  '/knowledge': typeof KnowledgeRouteWithChildren
+  '/operations': typeof OperationsRoute
+  '/organisation': typeof OrganisationRoute
+  '/profile': typeof ProfileRoute
+  '/requests': typeof RequestsRouteWithChildren
+  '/status': typeof StatusRoute
+  '/support': typeof SupportRoute
+  '/knowledge/$articleId': typeof KnowledgeArticleIdRoute
+  '/requests/$ticketId': typeof RequestsTicketIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/dashboard': typeof DashboardRoute
+  '/knowledge': typeof KnowledgeRouteWithChildren
+  '/operations': typeof OperationsRoute
+  '/organisation': typeof OrganisationRoute
+  '/profile': typeof ProfileRoute
+  '/requests': typeof RequestsRouteWithChildren
+  '/status': typeof StatusRoute
+  '/support': typeof SupportRoute
+  '/knowledge/$articleId': typeof KnowledgeArticleIdRoute
+  '/requests/$ticketId': typeof RequestsTicketIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/dashboard': typeof DashboardRoute
+  '/knowledge': typeof KnowledgeRouteWithChildren
+  '/operations': typeof OperationsRoute
+  '/organisation': typeof OrganisationRoute
+  '/profile': typeof ProfileRoute
+  '/requests': typeof RequestsRouteWithChildren
+  '/status': typeof StatusRoute
+  '/support': typeof SupportRoute
+  '/knowledge/$articleId': typeof KnowledgeArticleIdRoute
+  '/requests/$ticketId': typeof RequestsTicketIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/dashboard'
+    | '/knowledge'
+    | '/operations'
+    | '/organisation'
+    | '/profile'
+    | '/requests'
+    | '/status'
+    | '/support'
+    | '/knowledge/$articleId'
+    | '/requests/$ticketId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/dashboard'
+    | '/knowledge'
+    | '/operations'
+    | '/organisation'
+    | '/profile'
+    | '/requests'
+    | '/status'
+    | '/support'
+    | '/knowledge/$articleId'
+    | '/requests/$ticketId'
+  id:
+    | '__root__'
+    | '/'
+    | '/dashboard'
+    | '/knowledge'
+    | '/operations'
+    | '/organisation'
+    | '/profile'
+    | '/requests'
+    | '/status'
+    | '/support'
+    | '/knowledge/$articleId'
+    | '/requests/$ticketId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  DashboardRoute: typeof DashboardRoute
+  KnowledgeRoute: typeof KnowledgeRouteWithChildren
+  OperationsRoute: typeof OperationsRoute
+  OrganisationRoute: typeof OrganisationRoute
+  ProfileRoute: typeof ProfileRoute
+  RequestsRoute: typeof RequestsRouteWithChildren
+  StatusRoute: typeof StatusRoute
+  SupportRoute: typeof SupportRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +180,113 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/dashboard': {
+      id: '/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof DashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/knowledge': {
+      id: '/knowledge'
+      path: '/knowledge'
+      fullPath: '/knowledge'
+      preLoaderRoute: typeof KnowledgeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/operations': {
+      id: '/operations'
+      path: '/operations'
+      fullPath: '/operations'
+      preLoaderRoute: typeof OperationsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/organisation': {
+      id: '/organisation'
+      path: '/organisation'
+      fullPath: '/organisation'
+      preLoaderRoute: typeof OrganisationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/profile': {
+      id: '/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof ProfileRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/requests': {
+      id: '/requests'
+      path: '/requests'
+      fullPath: '/requests'
+      preLoaderRoute: typeof RequestsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/status': {
+      id: '/status'
+      path: '/status'
+      fullPath: '/status'
+      preLoaderRoute: typeof StatusRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/support': {
+      id: '/support'
+      path: '/support'
+      fullPath: '/support'
+      preLoaderRoute: typeof SupportRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/knowledge/$articleId': {
+      id: '/knowledge/$articleId'
+      path: '/$articleId'
+      fullPath: '/knowledge/$articleId'
+      preLoaderRoute: typeof KnowledgeArticleIdRouteImport
+      parentRoute: typeof KnowledgeRoute
+    }
+    '/requests/$ticketId': {
+      id: '/requests/$ticketId'
+      path: '/$ticketId'
+      fullPath: '/requests/$ticketId'
+      preLoaderRoute: typeof RequestsTicketIdRouteImport
+      parentRoute: typeof RequestsRoute
+    }
   }
 }
 
+interface KnowledgeRouteChildren {
+  KnowledgeArticleIdRoute: typeof KnowledgeArticleIdRoute
+}
+
+const KnowledgeRouteChildren: KnowledgeRouteChildren = {
+  KnowledgeArticleIdRoute: KnowledgeArticleIdRoute,
+}
+
+const KnowledgeRouteWithChildren = KnowledgeRoute._addFileChildren(
+  KnowledgeRouteChildren,
+)
+
+interface RequestsRouteChildren {
+  RequestsTicketIdRoute: typeof RequestsTicketIdRoute
+}
+
+const RequestsRouteChildren: RequestsRouteChildren = {
+  RequestsTicketIdRoute: RequestsTicketIdRoute,
+}
+
+const RequestsRouteWithChildren = RequestsRoute._addFileChildren(
+  RequestsRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  DashboardRoute: DashboardRoute,
+  KnowledgeRoute: KnowledgeRouteWithChildren,
+  OperationsRoute: OperationsRoute,
+  OrganisationRoute: OrganisationRoute,
+  ProfileRoute: ProfileRoute,
+  RequestsRoute: RequestsRouteWithChildren,
+  StatusRoute: StatusRoute,
+  SupportRoute: SupportRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
