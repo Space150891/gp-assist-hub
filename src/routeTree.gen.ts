@@ -10,6 +10,8 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AdminRouteImport } from './routes/admin'
+import { Route as ApprovalsRouteImport } from './routes/approvals'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as KnowledgeRouteImport } from './routes/knowledge'
 import { Route as OperationsRouteImport } from './routes/operations'
@@ -18,12 +20,25 @@ import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as RequestsRouteImport } from './routes/requests'
 import { Route as StatusRouteImport } from './routes/status'
 import { Route as SupportRouteImport } from './routes/support'
+import { Route as AdminSectionRouteImport } from './routes/admin.$section'
 import { Route as KnowledgeArticleIdRouteImport } from './routes/knowledge.$articleId'
+import { Route as OperationsIntegrationsRouteImport } from './routes/operations/integrations'
+import { Route as OperationsQueueRouteImport } from './routes/operations/queue'
 import { Route as RequestsTicketIdRouteImport } from './routes/requests.$ticketId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApprovalsRoute = ApprovalsRouteImport.update({
+  id: '/approvals',
+  path: '/approvals',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DashboardRoute = DashboardRouteImport.update({
@@ -66,10 +81,25 @@ const SupportRoute = SupportRouteImport.update({
   path: '/support',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminSectionRoute = AdminSectionRouteImport.update({
+  id: '/$section',
+  path: '/$section',
+  getParentRoute: () => AdminRoute,
+} as any)
 const KnowledgeArticleIdRoute = KnowledgeArticleIdRouteImport.update({
   id: '/$articleId',
   path: '/$articleId',
   getParentRoute: () => KnowledgeRoute,
+} as any)
+const OperationsIntegrationsRoute = OperationsIntegrationsRouteImport.update({
+  id: '/integrations',
+  path: '/integrations',
+  getParentRoute: () => OperationsRoute,
+} as any)
+const OperationsQueueRoute = OperationsQueueRouteImport.update({
+  id: '/queue',
+  path: '/queue',
+  getParentRoute: () => OperationsRoute,
 } as any)
 const RequestsTicketIdRoute = RequestsTicketIdRouteImport.update({
   id: '/$ticketId',
@@ -79,48 +109,65 @@ const RequestsTicketIdRoute = RequestsTicketIdRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRouteWithChildren
+  '/approvals': typeof ApprovalsRoute
   '/dashboard': typeof DashboardRoute
   '/knowledge': typeof KnowledgeRouteWithChildren
-  '/operations': typeof OperationsRoute
+  '/operations': typeof OperationsRouteWithChildren
   '/organisation': typeof OrganisationRoute
   '/profile': typeof ProfileRoute
   '/requests': typeof RequestsRouteWithChildren
   '/status': typeof StatusRoute
   '/support': typeof SupportRoute
+  '/admin/$section': typeof AdminSectionRoute
   '/knowledge/$articleId': typeof KnowledgeArticleIdRoute
+  '/operations/integrations': typeof OperationsIntegrationsRoute
+  '/operations/queue': typeof OperationsQueueRoute
   '/requests/$ticketId': typeof RequestsTicketIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRouteWithChildren
+  '/approvals': typeof ApprovalsRoute
   '/dashboard': typeof DashboardRoute
   '/knowledge': typeof KnowledgeRouteWithChildren
-  '/operations': typeof OperationsRoute
+  '/operations': typeof OperationsRouteWithChildren
   '/organisation': typeof OrganisationRoute
   '/profile': typeof ProfileRoute
   '/requests': typeof RequestsRouteWithChildren
   '/status': typeof StatusRoute
   '/support': typeof SupportRoute
+  '/admin/$section': typeof AdminSectionRoute
   '/knowledge/$articleId': typeof KnowledgeArticleIdRoute
+  '/operations/integrations': typeof OperationsIntegrationsRoute
+  '/operations/queue': typeof OperationsQueueRoute
   '/requests/$ticketId': typeof RequestsTicketIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/admin': typeof AdminRouteWithChildren
+  '/approvals': typeof ApprovalsRoute
   '/dashboard': typeof DashboardRoute
   '/knowledge': typeof KnowledgeRouteWithChildren
-  '/operations': typeof OperationsRoute
+  '/operations': typeof OperationsRouteWithChildren
   '/organisation': typeof OrganisationRoute
   '/profile': typeof ProfileRoute
   '/requests': typeof RequestsRouteWithChildren
   '/status': typeof StatusRoute
   '/support': typeof SupportRoute
+  '/admin/$section': typeof AdminSectionRoute
   '/knowledge/$articleId': typeof KnowledgeArticleIdRoute
+  '/operations/integrations': typeof OperationsIntegrationsRoute
+  '/operations/queue': typeof OperationsQueueRoute
   '/requests/$ticketId': typeof RequestsTicketIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/admin'
+    | '/approvals'
     | '/dashboard'
     | '/knowledge'
     | '/operations'
@@ -129,11 +176,16 @@ export interface FileRouteTypes {
     | '/requests'
     | '/status'
     | '/support'
+    | '/admin/$section'
     | '/knowledge/$articleId'
+    | '/operations/integrations'
+    | '/operations/queue'
     | '/requests/$ticketId'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/admin'
+    | '/approvals'
     | '/dashboard'
     | '/knowledge'
     | '/operations'
@@ -142,11 +194,16 @@ export interface FileRouteTypes {
     | '/requests'
     | '/status'
     | '/support'
+    | '/admin/$section'
     | '/knowledge/$articleId'
+    | '/operations/integrations'
+    | '/operations/queue'
     | '/requests/$ticketId'
   id:
     | '__root__'
     | '/'
+    | '/admin'
+    | '/approvals'
     | '/dashboard'
     | '/knowledge'
     | '/operations'
@@ -155,15 +212,20 @@ export interface FileRouteTypes {
     | '/requests'
     | '/status'
     | '/support'
+    | '/admin/$section'
     | '/knowledge/$articleId'
+    | '/operations/integrations'
+    | '/operations/queue'
     | '/requests/$ticketId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AdminRoute: typeof AdminRouteWithChildren
+  ApprovalsRoute: typeof ApprovalsRoute
   DashboardRoute: typeof DashboardRoute
   KnowledgeRoute: typeof KnowledgeRouteWithChildren
-  OperationsRoute: typeof OperationsRoute
+  OperationsRoute: typeof OperationsRouteWithChildren
   OrganisationRoute: typeof OrganisationRoute
   ProfileRoute: typeof ProfileRoute
   RequestsRoute: typeof RequestsRouteWithChildren
@@ -178,6 +240,20 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/approvals': {
+      id: '/approvals'
+      path: '/approvals'
+      fullPath: '/approvals'
+      preLoaderRoute: typeof ApprovalsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/dashboard': {
@@ -236,12 +312,33 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SupportRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/$section': {
+      id: '/admin/$section'
+      path: '/$section'
+      fullPath: '/admin/$section'
+      preLoaderRoute: typeof AdminSectionRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/knowledge/$articleId': {
       id: '/knowledge/$articleId'
       path: '/$articleId'
       fullPath: '/knowledge/$articleId'
       preLoaderRoute: typeof KnowledgeArticleIdRouteImport
       parentRoute: typeof KnowledgeRoute
+    }
+    '/operations/integrations': {
+      id: '/operations/integrations'
+      path: '/integrations'
+      fullPath: '/operations/integrations'
+      preLoaderRoute: typeof OperationsIntegrationsRouteImport
+      parentRoute: typeof OperationsRoute
+    }
+    '/operations/queue': {
+      id: '/operations/queue'
+      path: '/queue'
+      fullPath: '/operations/queue'
+      preLoaderRoute: typeof OperationsQueueRouteImport
+      parentRoute: typeof OperationsRoute
     }
     '/requests/$ticketId': {
       id: '/requests/$ticketId'
@@ -253,6 +350,16 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface AdminRouteChildren {
+  AdminSectionRoute: typeof AdminSectionRoute
+}
+
+const AdminRouteChildren: AdminRouteChildren = {
+  AdminSectionRoute: AdminSectionRoute,
+}
+
+const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
+
 interface KnowledgeRouteChildren {
   KnowledgeArticleIdRoute: typeof KnowledgeArticleIdRoute
 }
@@ -263,6 +370,20 @@ const KnowledgeRouteChildren: KnowledgeRouteChildren = {
 
 const KnowledgeRouteWithChildren = KnowledgeRoute._addFileChildren(
   KnowledgeRouteChildren,
+)
+
+interface OperationsRouteChildren {
+  OperationsIntegrationsRoute: typeof OperationsIntegrationsRoute
+  OperationsQueueRoute: typeof OperationsQueueRoute
+}
+
+const OperationsRouteChildren: OperationsRouteChildren = {
+  OperationsIntegrationsRoute: OperationsIntegrationsRoute,
+  OperationsQueueRoute: OperationsQueueRoute,
+}
+
+const OperationsRouteWithChildren = OperationsRoute._addFileChildren(
+  OperationsRouteChildren,
 )
 
 interface RequestsRouteChildren {
@@ -279,9 +400,11 @@ const RequestsRouteWithChildren = RequestsRoute._addFileChildren(
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AdminRoute: AdminRouteWithChildren,
+  ApprovalsRoute: ApprovalsRoute,
   DashboardRoute: DashboardRoute,
   KnowledgeRoute: KnowledgeRouteWithChildren,
-  OperationsRoute: OperationsRoute,
+  OperationsRoute: OperationsRouteWithChildren,
   OrganisationRoute: OrganisationRoute,
   ProfileRoute: ProfileRoute,
   RequestsRoute: RequestsRouteWithChildren,
